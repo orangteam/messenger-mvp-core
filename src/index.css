@@ -53,6 +53,13 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand & effects */
+    --brand: 258 86% 60%;
+    --brand-foreground: 210 40% 98%;
+    --gradient-hero: radial-gradient(600px circle at var(--pointer-x,50%) var(--pointer-y,50%), hsl(var(--brand) / 0.25), transparent 40%);
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--brand) / 0.35);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
@@ -91,6 +98,12 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand & effects (dark) */
+    --brand: 258 86% 62%;
+    --brand-foreground: 0 0% 100%;
+    --gradient-hero: radial-gradient(600px circle at var(--pointer-x,50%) var(--pointer-y,50%), hsl(var(--brand) / 0.2), transparent 40%);
+    --shadow-elegant: 0 15px 40px -15px hsl(var(--brand) / 0.45);
   }
 }
 
@@ -101,5 +114,39 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-hero {
+    background-image: var(--gradient-hero);
+  }
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+  .card-spotlight {
+    position: relative;
+  }
+  .card-spotlight::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--pointer-x,50%) var(--pointer-y,50%), hsl(var(--brand) / 0.15), transparent 40%);
+    pointer-events: none;
+    transition: var(--transition-smooth);
+  }
+  .gradient-text {
+    background-image: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--brand) / 0.8));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .animate-reveal {
+    animation: reveal 0.6s ease-out both;
+  }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
